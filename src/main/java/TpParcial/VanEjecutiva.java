@@ -1,22 +1,22 @@
 package TpParcial;
-
-
-
 public class VanEjecutiva extends Vehiculo {
-    private boolean asientoCuero;
+    private boolean aireAcondicionado;
     
-    public VanEjecutiva(String patente, String marca, int capacidad, int anio, boolean extra){
+    public VanEjecutiva(String patente, String marca, int capacidad, int anio, boolean aireAcondicionado){
         super(patente,marca,capacidad,anio);
-        this.asientoCuero = extra;
-       
+        this.aireAcondicionado = aireAcondicionado;
     } // constructor    
    
-    @Override
-    public String toString(){
-        return super.toString() + " - Tipo: Van Ejecutiva - Asiento Cuero: " + (asientoCuero ? "Si" : "No");
+    public boolean isAireAcondicionado(){
+        return aireAcondicionado;
     }
     
+    public boolean getAireAcondicionado(){
+        return aireAcondicionado;
+    }
     
-    
-    
+    @Override
+    public String toString(){
+        return super.toString() + " - Tipo: Van Ejecutiva - Aire acondicionado" + (aireAcondicionado ? "Si" : "No");
+    }  
 } //clase

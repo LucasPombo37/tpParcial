@@ -2,35 +2,76 @@
 package TpParcial;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class EmpresaTurismo {
     private ArrayList<Vehiculo> vehiculos;
-    
     public EmpresaTurismo(){
         vehiculos = new ArrayList<>();
     }
     
-    public void agregarVehiculo(Vehiculo v){
+    public boolean agregarVehiculo(Vehiculo v){
+        if(v.getPatente() == null || v.getPatente().equals("") || v.getPatente().replace(" ","").equals("")){
+            System.out.println("Error: La patente no puede estar vacia" );
+            return false;
+        }//primer if
+        for(Vehiculo aux:vehiculos){
+            if(aux.getPatente().equals(v.getPatente())){
+                System.out.println("Error: Ya existe un vehiculo con la patente " + v.getPatente());   
+                return false;
+            }
+        }//ciclo for
+        if(v.getCapacidad() <= 0){
+            System.out.println("Error: La capacidad debe ser mayor a 0");
+            return false;
+        }     
+        if(v.getAnio()< 1990){
+            System.out.println("Error: El anio debe ser 1990 o superior"); 
+            return false;
+        }
+        if(v.getAnio() > 2026){
+            System.out.println("Error: El anio no puede ser mayor a 2026");
+            return false;
+        }
+        if(v instanceof ColectivoTuristico){
+            ColectivoTuristico c = (ColectivoTuristico) v;
+            if(c.getCantidadPisos() != 1 && c.getCantidadPisos() != 2){
+                System.out.println("Error: El colectivo debe tener 1 o 2 pisos");
+                return false;
+            }
+        }
+        if(v instanceof LanchaTuristica){
+            LanchaTuristica l = (LanchaTuristica) v;
+            String motor = l.getTipoMotor().toUpperCase();
+            if(!motor.equals("NAFTA") && !motor.equals("DIESEL") && !motor.equals("ELECTRICO")){
+                System.out.println("Error: Tipo de motor no valido");
+            }
+        }
         vehiculos.add(v);
         System.out.println("Vehiculo agregado");
-    }
+        return true;
+        
+    } //cerramos agregarVehiculo
     
     public void mostrarTodosLosVehiculos(){
+        if(!hayVehiculos()){
+            return;
+        }    
         for(Vehiculo v : vehiculos){
             System.out.println(v);
         } //cerramos el ciclo
-    }
+    }//cerramos mostrarTodosLosVehiculos
     
     public void realizarServiciosTuristicos(){
-        if(vehiculos.size() == 0){
-            System.out.println("No hay vehiculos cargados ");
+        if(!hayVehiculos()){
             return;
         }
         System.out.println("!!!=== INICINDO SERVICIO TURISTICO ===!!!");
         for(Vehiculo v: vehiculos){
             v.realizarServicioTuristico();
         }
-    }
+    }//Llave de realizarServiciosTuristicos
     
     public Vehiculo buscarVehiculoPorPatente(String patente){
             for(Vehiculo v:vehiculos){
@@ -39,7 +80,7 @@ public class EmpresaTurismo {
             }     
         }
         return null;
-    }
+    }//Llave de buscsarVehiculoPorPatente
     
     public void mostrarVehiculosConCapacidadMayorA(int capacidadMinima){
         boolean encontro = false;       
@@ -53,7 +94,36 @@ public class EmpresaTurismo {
         if(!encontro){
             System.out.println("No hay vehiculos con capacidad mayor a " + capacidadMinima);                  
         }
+    }//Llave de mostrarVehiculosConCapacidadMayorA
+    
+    public void mostrarVehiculosOrdenadosPorAnio(){
+        if(!hayVehiculos()){
+            return;
+        }   
+        Collections.sort(vehiculos);
+        System.out.println("=== Vehiculos ordenados por anio ===");
+        for(Vehiculo v : vehiculos){
+            System.out.println(v);
+        }
+    }//cerramos mostrarVehiculosOrdenadosPorAnio
+    
+    private boolean hayVehiculos(){
+        if(vehiculos == null || vehiculos.size() == 0){
+            System.out.println("Error: No hay vehiculos cargados");
+            return false;
+        }
+        return true;
     }
     
+    
+    /*
+    public void mostrarVehiculosOrdenadosPorCapacidad(){
+        if(vehiculos.size() == 0){
+            System.out.println("No hay vehiculos cargados");
+            return;
+        }
+        Collections.sort(vehiculos,(v1,v2) -> Integer.compare(v1.getCapacidad(),v2.getCapacidad())));
+    }
+    */
     
 } // llave de la clase

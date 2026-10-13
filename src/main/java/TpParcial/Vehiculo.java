@@ -1,6 +1,6 @@
 package TpParcial;
 
-public abstract class Vehiculo {
+public abstract class Vehiculo implements Comparable<Vehiculo> {
     private String patente;
     private String marca;
     private int capacidad;
@@ -29,14 +29,18 @@ public abstract class Vehiculo {
         return this.anio;
     }
     
-    
     @Override
     public String toString(){
-        return "Patente: " + patente + " - Marca : " + marca + " - Capacidad: " + capacidad + " - Año: " + anio;
+        return "Patente: " + patente + " - Marca : " + marca + " - Capacidad: " + capacidad + " - Anio: " + anio;
     }
     
     public void realizarServicioTuristico(){
         System.out.println("!!!=== Realizando servicio turistico: "+ this.toString());
+    }
+   
+    @Override
+    public int compareTo(Vehiculo otro){
+        return Integer.compare(this.anio, otro.anio);
     }
     
 } // clase
