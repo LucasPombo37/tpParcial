@@ -3,7 +3,7 @@ package TpParcial;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+
 
 public class EmpresaTurismo {
     private ArrayList<Vehiculo> vehiculos;
@@ -17,11 +17,11 @@ public class EmpresaTurismo {
             return false;
         }//primer if
         for(Vehiculo aux:vehiculos){
-            if(aux.getPatente().equals(v.getPatente())){
+            if(aux.getPatente().toUpperCase().equals(v.getPatente().toUpperCase())){
                 System.out.println("Error: Ya existe un vehiculo con la patente " + v.getPatente());   
                 return false;
             }
-        }//ciclo for
+        }//ciclo 
         if(v.getCapacidad() <= 0){
             System.out.println("Error: La capacidad debe ser mayor a 0");
             return false;
@@ -46,13 +46,14 @@ public class EmpresaTurismo {
             String motor = l.getTipoMotor().toUpperCase();
             if(!motor.equals("NAFTA") && !motor.equals("DIESEL") && !motor.equals("ELECTRICO")){
                 System.out.println("Error: Tipo de motor no valido");
+                return false;
             }
         }
         vehiculos.add(v);
         System.out.println("Vehiculo agregado");
         return true;
         
-    } //cerramos agregarVehiculo
+    } //Llave de agregarVehiculo
     
     public void mostrarTodosLosVehiculos(){
         if(!hayVehiculos()){
@@ -61,7 +62,7 @@ public class EmpresaTurismo {
         for(Vehiculo v : vehiculos){
             System.out.println(v);
         } //cerramos el ciclo
-    }//cerramos mostrarTodosLosVehiculos
+    }//Llave de mostrarTodosLosVehiculos
     
     public void realizarServiciosTuristicos(){
         if(!hayVehiculos()){
@@ -100,12 +101,12 @@ public class EmpresaTurismo {
         if(!hayVehiculos()){
             return;
         }   
-        Collections.sort(vehiculos);
+        Collections.sort(vehiculos, Collections.reverseOrder());
         System.out.println("=== Vehiculos ordenados por anio ===");
         for(Vehiculo v : vehiculos){
             System.out.println(v);
         }
-    }//cerramos mostrarVehiculosOrdenadosPorAnio
+    }//Llave de mostrarVehiculosOrdenadosPorAnio
     
     private boolean hayVehiculos(){
         if(vehiculos == null || vehiculos.size() == 0){
@@ -113,17 +114,17 @@ public class EmpresaTurismo {
             return false;
         }
         return true;
-    }
+    }//llave de hayVehiculos
     
-    
-    /*
-    public void mostrarVehiculosOrdenadosPorCapacidad(){
-        if(vehiculos.size() == 0){
-            System.out.println("No hay vehiculos cargados");
+    public void ordenarPorCapacidadDesc(){
+        if(!hayVehiculos()){
             return;
         }
-        Collections.sort(vehiculos,(v1,v2) -> Integer.compare(v1.getCapacidad(),v2.getCapacidad())));
-    }
-    */
+        Collections.sort(vehiculos, new ComparadorPorCapacidadPasajeros());
+        
+        for(Vehiculo v: vehiculos){
+            System.out.println(v);
+        }
     
+    }//llave de ordenadoPorCapacidadDesc
 } // llave de la clase

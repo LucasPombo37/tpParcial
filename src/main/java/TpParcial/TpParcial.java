@@ -59,20 +59,19 @@ public class TpParcial {
                 case OPCION_CAPACIDAD:
                     try{
                         System.out.println("Ingrese capacidad minima: ");
-                        int cap = escaner.nextInt();
+                        int cap = Integer.parseInt(escaner.nextLine());
                         empresa.mostrarVehiculosConCapacidadMayorA(cap);  
                         }catch (NumberFormatException e){
                             System.out.println("Error: Tenes que ingresar un numero para la capacidad");
                         }    
-                              
                         break;
                 case OPCION_ORDEN_ANIO:
-                        System.out.println("Mostrar vehiculos ordenados por año de fabricacion...");
+                        System.out.println("Mostrar vehiculos ordenados por anio de fabricacion...");
                         empresa.mostrarVehiculosOrdenadosPorAnio();
                         break;                        
                 case OPCION_ORDEN_CAPACIDAD:
-                        System.out.println("Mostrar vehiculos ordenados por capacidad de pasajeros descendente...");
-                        
+                        System.out.println("Mostrar vehiculos ordenados por capacidad de pasajeros descendente..."); 
+                        empresa.ordenarPorCapacidadDesc();
                         break;                       
                 case OPCION_SALIR:       
                         System.out.println("Salir...");                 
@@ -112,11 +111,17 @@ public class TpParcial {
                 }
                 else if(tipo == TIPO_VAN){
                     System.out.println("Tiene aire true/false: ");
-                    boolean tieneAire = Boolean.parseBoolean(escaner.nextLine());
+                    String entradaAire = escaner.nextLine().toUpperCase();
+                    while(!entradaAire.equals("TRUE") && !entradaAire.equals("FALSE")){
+                        System.out.println("Error: Solo se permite true o false");
+                        System.out.println("Tiene aire true/false: ");
+                        entradaAire = escaner.nextLine().toUpperCase();
+                    }
+                    boolean tieneAire = entradaAire.equals("TRUE");
                     agregado = empresa.agregarVehiculo(new VanEjecutiva(pat,mar,cap,anio,tieneAire)); // se agrega al array
                 }
                 if(agregado){
-                    System.out.println("Vehículo agregado correctamente");
+                    System.out.println("Vehiculo agregado correctamente");
                     break;
                 }
                 } catch(NumberFormatException e){
@@ -129,7 +134,8 @@ public class TpParcial {
     public static void mostrarTodosLosVehiculos(){
         empresa.mostrarTodosLosVehiculos();
     }
-      
+    
+    //Main
     public static void main(String[] args) {   
         int opcion = 0;
         boolean salir = false;    

@@ -17,6 +17,6 @@ public class VanEjecutiva extends Vehiculo {
     
     @Override
     public String toString(){
-        return super.toString() + " - Tipo: Van Ejecutiva - Aire acondicionado" + (aireAcondicionado ? "Si" : "No");
+        return super.toString() + " - Tipo: Van Ejecutiva - Aire acondicionado: " + (aireAcondicionado ? " Si" : " No");
     }  
 } //clase
